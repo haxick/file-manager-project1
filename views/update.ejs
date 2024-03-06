@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rename File</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <h1>Rename File</h1>
+    <form action="/views/update" method="POST">
+      <label for="oldFilename">Old Filename:</label>
+      <input type="text" id="oldFilename" name="oldFilename" required /><br />
+      <label for="newFilename">New Filename:</label>
+      <input type="text" id="newFilename" name="newFilename" required /><br />
+      <button type="submit">Rename</button>
+    </form>
+  </body>
+</html>

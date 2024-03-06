@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete File</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <h1>Delete File</h1>
+    <form action="/views/delete" method="POST">
+      <label for="filename">Filename:</label>
+      <input type="text" id="filename" name="filename" required /><br />
+      <button type="submit">Delete</button>
+    </form>
+  </body>
+</html>
