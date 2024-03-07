@@ -3,38 +3,6 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 
-// Route for listing all files
-router.get("/", (req, res) => {
-  // Read files in the data directory
-  fs.readdir("./data", (err, files) => {
-    if (err) {
-      console.error("Error reading directory:", err);
-      res.status(500).send("Internal Server Error");
-      return;
-    }
-    res.render("index", { files });
-  });
-});
-
-// Route for viewing file content
-router.get("/:filename", (req, res) => {
-  const { filename } = req.params;
-  const filePath = path.join(__dirname, "../data", filename);
-  console.log("File Path:", filePath);
-
-  // Read file content
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error reading file:", err);
-      res.status(404).send("File Not Found");
-      return;
-    }
-    res.render("detail", { filename, content: data });
-  });
-});
-
-// Route for handling file creation form
-// Route for rendering the file creation form
 router.get("/views/create", (req, res) => {
   res.render("create");
 });
@@ -43,6 +11,17 @@ router.get("/views/update", (req, res) => {
 });
 router.get("/views/delete", (req, res) => {
   res.render("delete");
+});
+
+router.get("/", (req, res) => {
+  fs.readdir("./data", (err, files) => {
+    if (err) {
+      console.error("Error reading directory:", err);
+      res.status(500).send("Internal Server Error");
+      return;
+    }
+    res.render("index", { files });
+  });
 });
 
 router.post("/views/create", (req, res) => {
@@ -56,6 +35,21 @@ router.post("/views/create", (req, res) => {
       return;
     }
     res.redirect("/");
+  });
+});
+
+router.get("/views/details/:filename", (req, res) => {
+  const filePath = `${__dirname}/file-manager-project/../data/${req.params.filename}`;
+
+  fs.readFile(filePath, "utf8", (err, content) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error reading file");
+      return;
+    }
+
+    const filename = req.params.filename;
+    res.render("details", { filename, content });
   });
 });
 
